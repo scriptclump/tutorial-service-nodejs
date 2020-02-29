@@ -31,6 +31,21 @@ exports.create = (req, res) => {
         });
       });
 };
+// Create Tutorial in Bulk
+exports.createAll = (req, res) => {
+  var tutorials = req.body.tutorials;
+  // Save Tutorial in the database
+  Tutorial.bulkCreate(tutorials)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial."
+      });
+    });
+};
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
